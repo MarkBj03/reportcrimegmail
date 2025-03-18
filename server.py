@@ -7,15 +7,19 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
 
-# Create the Flask server
-server = Flask(__name__)
+# Create the Flask app
+app = Flask(__name__)  # Change 'server' to 'app'
+
+@app.route('/')
+def home():
+    return "Flask app is running!"
 
 # Email configuration
 EMAIL_ADDRESS = 'markbjnunez6@gmail.com'
 EMAIL_PASSWORD = 'myub vnzr imyz gavv'  # Use the generated App Password here
 
 # Route to handle form submission (Flask route)
-@server.route('/submit', methods=['POST'])
+@app.route('/submit', methods=['POST'])
 def submit():
     try:
         # Retrieve form data
@@ -70,9 +74,9 @@ def submit():
         return f"An error occurred: {e}", 500
 
 # Route to serve your custom thankyou.html (Flask route)
-@server.route('/thankyou')
+@app.route('/thankyou')
 def thank_you():
     return render_template('thankyou.html')  # This will render your custom thankyou.html
 
 if __name__ == '__main__':
-    server.run(debug=True)
+    app.run(debug=True)
